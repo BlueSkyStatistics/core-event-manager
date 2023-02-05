@@ -1,0 +1,24 @@
+{
+    "name": "@BlueSkyStatistics/eventManager",
+    "productName": "Event Manager",
+    "description": "Event manager module to register and emit events and notifications",
+    "keywords": ["event", "bsevent", "manager", "notification", "alert", "notify", "notifyer"],
+    "main": "index.js",
+    "version": "1.0.0",
+    "author": "aspect13",
+    "scripts": {},
+    "dependencies": {},
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/BlueSkyStatistics/eventManager.git"
+    },
+    "license": "AGLPL",
+    "bugs": {
+        "url": "https://github.com/BlueSkyStatistics/BlueSkyJS/issues"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "homepage": "https://www.blueskystatistics.com"
+}
