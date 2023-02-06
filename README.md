@@ -27,3 +27,27 @@ or
 const myEvent = new BSEvent('myEvent')
 myEvent.list // - same as BSEvent.list()
 ```
+
+### Get result of your action handler
+```js 
+const myEvent = new BSEvent('myEvent')
+```
+!!! Getting a result requires your `handler` to be able to do that
+```js
+const myHandlerWithResultsReturn = (event, payload) => {
+    const {awaitResult, ...otherOptions} = payload
+    //  
+    // ...handler code here
+    //  
+    const resultData = '*result of my great handler*'
+    if (awaitResult !== undefined) {
+        BSEvent.handleResolveResult(awaitResult, resultData)
+    }
+}
+```
+
+When your `handler` is configured get the desired results:
+```js
+const eventResult = await myEvent.emit({awaitResult: true})
+console.log(eventResult) // <- '*result of my great handler*'
+```
