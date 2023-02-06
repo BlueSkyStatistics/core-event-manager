@@ -32,22 +32,17 @@ myEvent.list // - same as BSEvent.list()
 ```js 
 const myEvent = new BSEvent('myEvent')
 ```
-!!! Getting a result requires your `handler` to be able to do that
+Your `handler` can return something you would like to retrieve when emitting the event
 ```js
-const myHandlerWithResultsReturn = (event, payload) => {
-    const {awaitResult, ...otherOptions} = payload
-    //  
+const myHandler = (event, payload) => {
     // ...handler code here
-    //  
-    const resultData = '*result of my great handler*'
-    if (awaitResult !== undefined) {
-        BSEvent.handleResolveResult(awaitResult, resultData)
-    }
+    return '123 this is the result of my great handler!'
 }
 ```
 
-When your `handler` is configured get the desired results:
+To get the desired result pass the `awaitResult: true` to your emit payload:
 ```js
 const eventResult = await myEvent.emit({awaitResult: true})
-console.log(eventResult) // <- '*result of my great handler*'
+console.log(eventResult) // <- '123 this is the result of my great handler!'
 ```
+Note that `await` is required as event will return a promise
