@@ -7,7 +7,7 @@ module.exports = {
         if (!message) {
             throw new Error('Event payload must be object {message: "my message", ...options} or a plain string "my message"')
         }
-        let {title, icon, type, subtitle, ...options} = payload
+        let {title, icon, type, subtitle, awaitResult, ...options} = payload
         const getIcon = type => {
             if (title === undefined) {
                 return undefined
@@ -27,7 +27,7 @@ module.exports = {
             icon = getIcon(type)
         }
 
-        return $.notify({message, title, icon}, {
+        const notificationId = $.notify({message, title, icon}, {
             element: 'body',
             position: null,
             allow_duplicates: true,
@@ -81,8 +81,14 @@ module.exports = {
                 `,
             ...options
         })
+
+        if (awaitResult !== undefined) {
+            BSEvent.handleResolveResult(awaitResult, notificationId)
+        }
+        return notificationId
     })
 }
+
 if (sessionStore.get('appMode') === 'test') {
     const testHandler = require('./js/test')
     module.exports.testNotify = new BSEvent('test-notify').register(testHandler)
