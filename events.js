@@ -7,7 +7,7 @@ module.exports = {
         if (!message) {
             throw new Error('Event payload must be object {message: "my message", ...options} or a plain string "my message"')
         }
-        let {title, icon, type, subtitle, awaitResult, ...options} = payload
+        let {title, icon, type, subtitle, ...options} = payload
         const getIcon = type => {
             if (title === undefined) {
                 return undefined
@@ -82,9 +82,6 @@ module.exports = {
             ...options
         })
 
-        if (awaitResult !== undefined) {
-            BSEvent.handleResolveResult(awaitResult, notificationId)
-        }
         return notificationId
     })
 }
