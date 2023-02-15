@@ -20,10 +20,10 @@ jobs:
         with:
           node-version: 16
       - run: npm i asar
-      - run: ./node_modules/.bin/asar pack . testModule.asar
+      - run: ./node_modules/.bin/asar pack . core-event-manager.asar
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.event.inputs.release_version }}
-          files: ./${{ github.event.repository.name }}.asar
+          files: ./core-event-manager.asar
           generate_release_notes: true
