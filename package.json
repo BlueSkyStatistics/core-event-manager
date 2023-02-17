@@ -7,8 +7,12 @@
     "version": "1.0.0",
     "author": "aspect13",
     "scripts": {},
-    "dependencies": {},
-    "devDependencies": {},
+    "dependencies": {
+        "jquery": "3.5.1"
+    },
+    "devDependencies": {
+        "asar": "^3.1.0"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/BlueSkyStatistics/eventManager.git"
