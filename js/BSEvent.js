@@ -1,10 +1,11 @@
 class BSEvent {
+    static store = undefined
     static STORE_KEY = 'BSEvents'
     static RESULTS_KEY = 'BSEventResults'
     static RESULTS_MAX_POOL_SIZE = 10
 
-    static list = () => sessionStore.get(BSEvent.STORE_KEY, [])
-    static results = global[BSEvent.RESULTS_KEY]
+    static list = () => BSEvent.store.get(BSEvent.STORE_KEY, [])
+    static results = {}
 
     static handleCleanResults() {
         // remove resolved results
@@ -37,7 +38,8 @@ class BSEvent {
 
     static resultHandlerMiddleware(func) {
         return async (event, payload) => {
-            const {awaitResult} = payload
+            const awaitResult = payload?.awaitResult
+
             try {
                 const handlerResult = await func.apply(this, [event, payload])
                 if (awaitResult !== undefined) {
@@ -51,8 +53,8 @@ class BSEvent {
     }
 
     constructor(name) {
-        if (sessionStore === undefined || ipcRenderer === undefined) {
-            console.warn('Requirements unset', {sessionStore, ipcRenderer})
+        if (BSEvent.store === undefined || ipcRenderer === undefined) {
+            console.warn('Requirements unset', {store: BSEvent.store, ipcRenderer})
         }
         this.name = name
     }
@@ -69,14 +71,14 @@ class BSEvent {
         if (this.exists) {
             throw new Error(`Event with name [${this.name}] is already registered!`)
         } else {
-            sessionStore.set(BSEvent.STORE_KEY, [...this.list, this.name])
+            BSEvent.store.set(BSEvent.STORE_KEY, [...this.list, this.name])
             ipcRenderer.on(this.name, BSEvent.resultHandlerMiddleware(handler))
         }
         return this
     }
 
     handlePayloadMutation(payload) {
-        const {awaitResult} = payload
+        const awaitResult = payload?.awaitResult
         if (awaitResult !== undefined) {
             const resultKey = typeof awaitResult === 'string' ? awaitResult : new Date().getTime()
             let resolveCallback, rejectCallback
@@ -98,12 +100,11 @@ class BSEvent {
     async emit(payload) {
         !this.exists && console.warn(`Event with name [${this.name}] is not registered. Still emitting...`)
         payload = this.handlePayloadMutation(payload)
-        await ipcRenderer.invoke('bsevent', {event: this.name, data: payload})
-        if (payload.awaitResult !== undefined) {
+        await ipcRenderer.send('bsevent', {event: this.name, data: payload})
+        if (payload?.awaitResult !== undefined) {
             return BSEvent.results[payload.awaitResult]?.promise
         }
     }
 }
 
-BSEvent.results = {}
 module.exports = BSEvent
