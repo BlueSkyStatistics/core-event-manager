@@ -1,10 +1,29 @@
 {
-    "name": "@BlueSkyStatistics/eventManager",
+    "name": "@BlueSkyStatistics/core-event-manager",
+    "main": "index.js",
+    "version": "1.0.1",
+    "group": "core",
+    "subscriptions": ["public"],
+    "moduleMeta": {
+      "path": "{{locals}}/core-event-manager.asar",
+      "storage": "firebase",
+      "update": "auto",
+      "artifactType": "asar",
+      "extra": {
+        "sourceType": "release",
+        "remote": "BlueSkyStatistics/core-event-manager"
+      },
+      "update": "manual",
+      "removable": true
+    },
+    "minBSkyVersion": null,
+    "minAppVersion": null,
+    "requiredPackages": [],
+
+    
     "productName": "Event Manager",
     "description": "Event manager module to register and emit events and notifications",
     "keywords": ["event", "bsevent", "manager", "notification", "alert", "notify", "notifyer"],
-    "main": "index.js",
-    "version": "1.0.1",
     "author": "aspect13",
     "scripts": {},
     "dependencies": {
