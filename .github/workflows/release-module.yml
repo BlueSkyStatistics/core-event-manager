@@ -1,18 +1,14 @@
-name: Buld and deploy
+name: Release Module
 
 on:
   workflow_dispatch:
     inputs:
-      release_github:
-        description: 'Make a github release'
-        required: false
-        type: boolean
-        default: true
-      release_firebase:
-        description: 'Make a firebase release'
-        required: false
-        type: boolean
-        default: true
+      release_type:
+        description: 'Where we are going to release now'
+        type: choice
+        options:
+        - github
+        - firebase
 
 env:
   MODULE_NAME_KEY: 'name'
@@ -79,7 +75,7 @@ jobs:
 
 
   release_github:
-     if: inputs.release_github
+     if: ${{ inputs.release_type == 'github' }}
      needs: build
      runs-on: ubuntu-latest
      steps:
@@ -96,7 +92,7 @@ jobs:
            generate_release_notes: true
 
   release_firebase:
-    if: inputs.release_firebase
+    if: ${{ inputs.release_type == 'firebase' }}
     needs: build
     runs-on: ubuntu-latest
     steps:
