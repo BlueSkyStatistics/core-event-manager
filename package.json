@@ -13,7 +13,6 @@
         "sourceType": "release",
         "remote": "BlueSkyStatistics/core-event-manager"
       },
-      "update": "manual",
       "removable": true
     },
     "minBSkyVersion": null,
