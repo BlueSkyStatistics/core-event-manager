@@ -1,7 +1,7 @@
 {
     "name": "@BlueSkyStatistics/core-event-manager",
     "main": "index.js",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "group": "core",
     "subscriptions": ["public"],
     "moduleMeta": {
@@ -16,7 +16,7 @@
       "removable": true
     },
     "minBSkyVersion": null,
-    "minAppVersion": null,
+    "minAppVersion": "10.4.0",
     "requiredPackages": [],
 
     
