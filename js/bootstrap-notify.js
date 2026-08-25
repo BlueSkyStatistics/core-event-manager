@@ -300,7 +300,7 @@
                 this.reposition(offsetAmt);
             }
 
-            if ($.isFunction(self.settings.onShow)) {
+            if (typeof self.settings.onShow === "function") {
                 self.settings.onShow.call(this.$ele);
             }
 
@@ -308,14 +308,14 @@
                 hasAnimation = true;
             }).one(this.animations.end, function () {
                 self.$ele.removeClass(self.settings.animate.enter);
-                if ($.isFunction(self.settings.onShown)) {
+                if (typeof self.settings.onShown === "function") {
                     self.settings.onShown.call(this);
                 }
             });
 
             setTimeout(function () {
                 if (!hasAnimation) {
-                    if ($.isFunction(self.settings.onShown)) {
+                    if (typeof self.settings.onShown === "function") {
                         self.settings.onShown.call(this);
                     }
                 }
@@ -328,7 +328,7 @@
                 self.close();
             });
 
-            if ($.isFunction(self.settings.onClick)) {
+            if (typeof self.settings.onClick === "function") {
                 this.$ele.on('click', function (event) {
                     if (event.target != self.$ele.find('[data-notify="dismiss"]')[0]) {
                         self.settings.onClick.call(this, event);
@@ -367,7 +367,7 @@
             this.$ele.attr('data-closing', 'true').addClass(this.settings.animate.exit);
             self.reposition(posX);
 
-            if ($.isFunction(self.settings.onClose)) {
+            if (typeof self.settings.onClose === "function") {
                 self.settings.onClose.call(this.$ele);
             }
 
@@ -375,7 +375,7 @@
                 hasAnimation = true;
             }).one(this.animations.end, function () {
                 $(this).remove();
-                if ($.isFunction(self.settings.onClosed)) {
+                if (typeof self.settings.onClosed === "function") {
                     self.settings.onClosed.call(this);
                 }
             });
