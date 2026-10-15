@@ -99,7 +99,3 @@ module.exports = {
     })
 }
 
-if (BSEvent.store.get('appMode') === 'test') {
-    const testHandler = require('./js/test')
-    module.exports.testNotify = new BSEvent('test-notify').register(testHandler)
-}
